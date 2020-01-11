@@ -19,11 +19,22 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    //Joystick USB Ports
     public static final int LEFT_JOYSTICK_USB = 0;
     public static final int RIGHT_JOYSTICK_USB = 1;
 
+    //Joysticks
     public static final Joystick RIGHT_JOYSTICK = new Joystick(RIGHT_JOYSTICK_USB);
     public static final Joystick LEFT_JOYSTICK = new Joystick(LEFT_JOYSTICK_USB);
 
+    //Joystick Buttons
     public static final JoystickButton TRIGGER = new JoystickButton(LEFT_JOYSTICK,  1);
+
+    //Speed Controllers
+    public static final int DRIVE_INTAKE_RIGHT_BACK = 0;
+    public static final int DRIVE_INTAKE_RIGHT_FRONT = 0;
+    public static final int DRIVE_INTAKE_LEFT_BACK = 0;
+    public static final int DRIVE_INTAKE_LEFT_FRONT = 0;
+
+ 
 }
