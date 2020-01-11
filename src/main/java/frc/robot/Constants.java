@@ -32,9 +32,9 @@ public final class Constants {
 
     //Speed Controllers
     public static final int DRIVE_INTAKE_RIGHT_BACK = 0;
-    public static final int DRIVE_INTAKE_RIGHT_FRONT = 0;
-    public static final int DRIVE_INTAKE_LEFT_BACK = 0;
-    public static final int DRIVE_INTAKE_LEFT_FRONT = 0;
+    public static final int DRIVE_INTAKE_RIGHT_FRONT = 1;
+    public static final int DRIVE_INTAKE_LEFT_BACK = 2;
+    public static final int DRIVE_INTAKE_LEFT_FRONT = 3;
 
  
 }
