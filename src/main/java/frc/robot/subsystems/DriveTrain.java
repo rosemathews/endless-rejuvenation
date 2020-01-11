@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Constants.DriveConstants;
 
 public class DriveTrain extends SubsystemBase {
   
@@ -27,10 +27,10 @@ public class DriveTrain extends SubsystemBase {
    * Creates a new DriveTrain.
    */
   public DriveTrain() {
-    sc_RightB = new Talon(Constants.DRIVE_INTAKE_RIGHT_BACK);
-    sc_RightF = new Talon(Constants.DRIVE_INTAKE_RIGHT_FRONT);
-    sc_LeftB = new Talon(Constants.DRIVE_INTAKE_LEFT_BACK);
-    sc_LeftF = new Talon(Constants.DRIVE_INTAKE_LEFT_FRONT);
+    sc_RightB = new Talon(DriveConstants.DRIVE_PWM_RIGHT_BACK);
+    sc_RightF = new Talon(DriveConstants.DRIVE_PWM_RIGHT_FRONT);
+    sc_LeftB = new Talon(DriveConstants.DRIVE_PWM_LEFT_BACK);
+    sc_LeftF = new Talon(DriveConstants.DRIVE_PWM_LEFT_FRONT);
 
     sc_LeftGroup = new SpeedControllerGroup(sc_LeftF, sc_LeftB);
     sc_RightGroup = new SpeedControllerGroup(sc_RightF, sc_RightB);
