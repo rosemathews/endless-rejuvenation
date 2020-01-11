@@ -7,7 +7,7 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Joystick;
+
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Talon;
@@ -16,9 +16,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveTrain extends SubsystemBase {
   
-  private SpeedController m_RightB, m_RightF, m_LeftB, m_LeftF;
+  private SpeedController sc_RightB, sc_RightF, sc_LeftB, sc_LeftF;
   
-  private SpeedControllerGroup m_RightGroup, m_LeftGroup;
+  private SpeedControllerGroup sc_RightGroup, sc_LeftGroup;
 
   private DifferentialDrive drive;
 
@@ -26,15 +26,15 @@ public class DriveTrain extends SubsystemBase {
    * Creates a new DriveTrain.
    */
   public DriveTrain() {
-    m_RightB = new Talon(0);
-    m_RightF = new Talon(1);
-    m_LeftB = new Talon(2);
-    m_LeftF = new Talon(3);
+    sc_RightB = new Talon(0);
+    sc_RightF = new Talon(1);
+    sc_LeftB = new Talon(2);
+    sc_LeftF = new Talon(3);
 
-    m_LeftGroup = new SpeedControllerGroup(m_LeftF, m_LeftB);
-    m_RightGroup = new SpeedControllerGroup(m_RightF, m_RightB);
+    sc_LeftGroup = new SpeedControllerGroup(sc_LeftF, sc_LeftB);
+    sc_RightGroup = new SpeedControllerGroup(sc_RightF, sc_RightB);
 
-    drive = new DifferentialDrive(m_LeftGroup, m_RightGroup);
+    drive = new DifferentialDrive(sc_LeftGroup, sc_RightGroup);
 
   }
 
