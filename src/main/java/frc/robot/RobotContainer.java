@@ -39,7 +39,8 @@ public class RobotContainer {
     drive.setDefaultCommand(new RunCommand(() -> 
       drive.tankDrive(
         -stick_left.getY(), 
-        -stick_right.getY())));
+        -stick_right.getY())
+      ,drive));
   }
 
   /**
