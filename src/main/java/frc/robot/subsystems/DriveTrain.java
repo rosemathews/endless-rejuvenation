@@ -8,12 +8,14 @@
 package frc.robot.subsystems;
 
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.EncoderConstants;
 
 public class DriveTrain extends SubsystemBase {
   
@@ -23,6 +25,7 @@ public class DriveTrain extends SubsystemBase {
 
   private DifferentialDrive drive;
 
+  private Encoder enc_Left, enc_Right;
   /**
    * Creates a new DriveTrain.
    */
@@ -37,6 +40,10 @@ public class DriveTrain extends SubsystemBase {
 
     drive = new DifferentialDrive(sc_LeftGroup, sc_RightGroup);
 
+    enc_Left = new Encoder(EncoderConstants.ENCODER_1_DIO1, EncoderConstants.ENCODER_1_DIO2, false, Encoder.EncodingType.k1X);
+    enc_Right = new Encoder(EncoderConstants.ENCODER_2_DIO1, EncoderConstants.ENCODER_2_DIO2, false, Encoder.EncodingType.k1X);
+    enc_Left.setDistancePerPulse(EncoderConstants.DISTANCE_PER_PULSE);
+    enc_Right.setDistancePerPulse(EncoderConstants.DISTANCE_PER_PULSE);
   }
 
   @Override
@@ -49,5 +56,18 @@ public class DriveTrain extends SubsystemBase {
 
   public void arcadeDrive(double input_y, double input_x){
     drive.arcadeDrive(input_y, input_x);
+  }
+
+  public double getEncLeftDistance() {
+    return enc_Left.getDistance();
+  }
+  public double getEncRightDistance() {
+    return enc_Right.getDistance();
+  }
+  public void resetEncLeft() {
+    enc_Left.reset();
+  }
+  public void resetEncRight() {
+    enc_Right.reset();
   }
 }

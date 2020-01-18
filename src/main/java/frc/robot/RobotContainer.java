@@ -43,10 +43,10 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     drive.setDefaultCommand(new RunCommand(() -> 
-      drive.arcadeDrive( 
-        -stick_left.getY()*0.5, 
-        stick_left.getX()*0.5), drive));
-    // drive.setDefaultCommand(new DriveCommand(drive, -stick_left.getX(), -stick_left.getY()));
+      drive.tankDrive(
+        -stick_left.getY(), 
+        -stick_right.getY())
+      ,drive));
   }
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
