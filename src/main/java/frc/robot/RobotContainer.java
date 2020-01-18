@@ -11,8 +11,14 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Vision;
 import frc.robot.Constants;
+import frc.robot.commands.AutoCommand;
+import frc.robot.commands.DriveCommand;
+import frc.robot.commands.PivotCommand;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -22,26 +28,26 @@ import frc.robot.Constants;
  */
 public class RobotContainer {
   //Subsystems
-  private final DriveTrain drive = new DriveTrain();
+  // private final DriveTrain drive = new DriveTrain();
 
   //Joysticks
+  public Vision v = new Vision();
   private final Joystick stick_left = Constants.OIConstants.LEFT_JOYSTICK;
   private final Joystick stick_right = Constants.OIConstants.RIGHT_JOYSTICK;
-
+  private static Button button;
+  public static final DriveTrain drive = new DriveTrain();
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
-
     configureButtonBindings();
-
     drive.setDefaultCommand(new RunCommand(() -> 
-      drive.tankDrive(
-        -stick_left.getY(), 
-        -stick_right.getY())));
+      drive.arcadeDrive( 
+        -stick_left.getY()*0.5, 
+        stick_left.getX()*0.5), drive));
+    // drive.setDefaultCommand(new DriveCommand(drive, -stick_left.getX(), -stick_left.getY()));
   }
-
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
@@ -49,7 +55,8 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
+    button = new JoystickButton(stick_left, 5);
+    button.whileHeld(new AutoCommand(drive));
   }
 
   /**
