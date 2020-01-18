@@ -16,6 +16,9 @@ public class Vision extends SubsystemBase {
     public Vision() {
 
     }
+    public void printYeet() {
+        System.out.println("yeet");
+    }
     public double getTX() {
         return tx.getDouble(0.0);
     }
@@ -31,6 +34,7 @@ public class Vision extends SubsystemBase {
 
     @Override
     public void periodic() {
+        // System.out.println(tx.getDouble(0.0));
     // This method will be called once per scheduler run
     }
 

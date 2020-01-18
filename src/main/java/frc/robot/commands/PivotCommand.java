@@ -17,17 +17,15 @@ import frc.robot.subsystems.Vision;
  * An example command.  You can replace me with your own command.
  */
 public class PivotCommand extends CommandBase {
-  DriveTrain dr;
   Vision vision;
   double P = 1.8;
   double I = 0.0;
   double D = 0.0;
-  double integral, previous_error, setpoint = 0.0;
   double rcw = 0.0;
-
-  public PivotCommand(Vision v,DriveTrain drive) {
-    this.dr = drive;
+DriveTrain d;
+  public PivotCommand(Vision v, DriveTrain d) {
     this.vision = v;
+    this.d = d;
   }
   // private double convert(double percent) {
 
@@ -37,32 +35,24 @@ public class PivotCommand extends CommandBase {
   public void initialize() {
   }
   void TurnAtSpeed(double speed) {
-    dr.tankDrive(-speed, speed);
-  }
-  void PID() {
-    double error = setpoint - vision.getTX();
-    this.integral += (error*0.2);
-    double derivative = (error - this.previous_error) / 0.2;
-    this.rcw = P*error + I*this.integral + D*derivative;
+    d.tankDrive(-speed, speed);
   }
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
     try {
       if (vision.getTX() != 0.0) {
-        // PID();
-        // Robot.drive.arcadeDrive(-rcw/32.0, 0.0);
-        if (vision.getTX() > 2.0) {
-          if (vision.getTX() > 1.0) {
-            TurnAtSpeed(0.6);
+        if (vision.getTX() > 1.0) {
+          if (vision.getTX() > 0.5) {
+            TurnAtSpeed(0.2);
           }else {
-            TurnAtSpeed(0.3);
+            TurnAtSpeed(0.1);
           }
-        }else if (vision.getTX() < -2.0) {
-          if (vision.getTX() < -1.0) {
-            TurnAtSpeed(-0.6);
+        }else if (vision.getTX() < -1.0) {
+          if (vision.getTX() < -0.5) {
+            TurnAtSpeed(-0.2);
           }else {
-            TurnAtSpeed(-0.3);
+            TurnAtSpeed(-0.1);
           }
         }
       }
