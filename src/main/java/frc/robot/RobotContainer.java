@@ -16,8 +16,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Vision;
 import frc.robot.Constants;
-import frc.robot.commands.AutoCommand;
-import frc.robot.commands.DriveCommand;
 import frc.robot.commands.PivotCommand;
 
 /**
@@ -56,7 +54,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     button = new JoystickButton(stick_left, 5);
-    button.whileHeld(new AutoCommand(drive));
+    // button.whileHeld(new AutoCommand(drive));
   }
 
   /**
