@@ -11,8 +11,11 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import frc.robot.subsystems.DriveTrain;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.subsystems.*;
 import frc.robot.Constants;
+import frc.robot.Constants.ArmConstants;
+import frc.robot.commands.*;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -23,17 +26,22 @@ import frc.robot.Constants;
 public class RobotContainer {
   //Subsystems
   private final DriveTrain drive = new DriveTrain();
+  private final ControlPanelArm cpm = new ControlPanelArm();
 
   //Joysticks
-  private final Joystick stick_left = Constants.OIConstants.LEFT_JOYSTICK;
-  private final Joystick stick_right = Constants.OIConstants.RIGHT_JOYSTICK;
-
+  private final Joystick stick_left = Constants.ContainerConstants.LEFT_JOYSTICK;
+  private final Joystick stick_right = Constants.ContainerConstants.RIGHT_JOYSTICK;
+  private final JoystickButton butt_armExtend;
+  private final JoystickButton butt_armRetract;
+  private final JoystickButton butt_armAutoSpin;
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
-
+    butt_armExtend = new JoystickButton(stick_right, ArmConstants.ARM_FWD_BUTTON);
+    butt_armRetract = new JoystickButton(stick_right, ArmConstants.ARM_FWD_BUTTON);
+    butt_armAutoSpin = new JoystickButton(stick_right, ArmConstants.SPIN_AUTO_BUTTON);
     configureButtonBindings();
 
     drive.setDefaultCommand(new RunCommand(() -> 
@@ -41,6 +49,7 @@ public class RobotContainer {
         -stick_left.getY(), 
         -stick_right.getY())
       ,drive));
+    cpm.setDefaultCommand(new ColorSpinManual(cpm));
   }
 
   /**
@@ -50,7 +59,9 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
+    butt_armExtend.whenPressed(new ArmExtend(cpm));
+    butt_armRetract.whenPressed(new ArmRetract(cpm));
+    butt_armAutoSpin.whenPressed(new ColorSpinAuto(cpm, "Red")); //TODO: how to receive color from game?
   }
 
   /**

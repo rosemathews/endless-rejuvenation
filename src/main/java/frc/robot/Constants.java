@@ -23,7 +23,7 @@ public final class Constants {
      * Constants for the Control System of the Robot
      * 
      */
-    public static final class OIConstants{
+    public static final class ContainerConstants{
         public static final int LEFT_JOYSTICK_USB = 0;
         public static final int RIGHT_JOYSTICK_USB = 1;
 
@@ -43,19 +43,27 @@ public final class Constants {
         public static final int DRIVE_PWM_LEFT_FRONT = 3;
     }
     public static final class TurretConstants {
-        public static final int TURRET_PWM_LEFT = 525600;
-        public static final int TURRET_PWM_RIGHT = 525600;
+        public static final int TURRET_PWM = 525600;
         public static final int SHOOTER_PWM_LEFT = 525600;
         public static final int SHOOTER_PWM_RIGHT = 525600;
         public static final int SUSAN_PWM = 525600;
+        public static final int ENCODER_3_DIO1 = 4;
+        public static final int ENCODER_3_DIO2 = 5;
     }
     public static final class EncoderConstants {
         public static final int ENCODER_1_DIO1 = 2;
         public static final int ENCODER_1_DIO2 = 3;
         public static final int ENCODER_2_DIO1 = 0;
-        public static final int ENCODER_2_DIO2 = 2;
+        public static final int ENCODER_2_DIO2 = 1;
         public static final double DISTANCE_PER_PULSE = 0.5*Math.PI/1024.;
     }
-    
+    public static final class ArmConstants {
+        public static final int ARM_FWD_PWM = 525600;
+        public static final int ARM_BACK_PWM = 525600;
+        public static final int SPIN_PWM = 525600;
+        public static final int ARM_FWD_BUTTON = 5;
+        public static final int ARM_BACK_BUTTON = 3;
+        public static final int SPIN_AUTO_BUTTON = 2;
+    }
  
 }

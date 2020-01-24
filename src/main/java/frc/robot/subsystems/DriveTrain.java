@@ -40,8 +40,8 @@ public class DriveTrain extends SubsystemBase {
 
     drive = new DifferentialDrive(sc_LeftGroup, sc_RightGroup);
 
-    enc_Left = new Encoder(EncoderConstants.ENCODER_1_DIO1, EncoderConstants.ENCODER_1_DIO2, false, Encoder.EncodingType.k1X);
-    enc_Right = new Encoder(EncoderConstants.ENCODER_2_DIO1, EncoderConstants.ENCODER_2_DIO2, false, Encoder.EncodingType.k1X);
+    enc_Left = new Encoder(EncoderConstants.ENCODER_1_DIO1, EncoderConstants.ENCODER_1_DIO2, false);
+    enc_Right = new Encoder(EncoderConstants.ENCODER_2_DIO1, EncoderConstants.ENCODER_2_DIO2, false);
     enc_Left.setDistancePerPulse(EncoderConstants.DISTANCE_PER_PULSE);
     enc_Right.setDistancePerPulse(EncoderConstants.DISTANCE_PER_PULSE);
   }

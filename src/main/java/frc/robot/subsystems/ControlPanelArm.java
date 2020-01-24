@@ -7,12 +7,19 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
+
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.ArmConstants;
+
 import com.revrobotics.ColorSensorV3;
 
 public class ControlPanelArm extends SubsystemBase {
@@ -24,20 +31,19 @@ public class ControlPanelArm extends SubsystemBase {
   private Color readGreen;
   private Color readRed;
   private Color readYellow;
-  //todo: declare spinner motor
+  private DoubleSolenoid sol_Arm;
+  private SpeedController sc_Spin;
   public ControlPanelArm() {
     i2cPort = I2C.Port.kOnboard;
     colorSensor = new ColorSensorV3(i2cPort);
-    //todo: init spinner motor
     cm = new ColorMatch();
     readBlue = new Color(0.2,0.5,0.3);
     readGreen = new Color(0.25,0.6,0.2);
     readRed = new Color(0.6,0.3,0.05);
     readYellow = new Color(0.42,0.5,0.05);
-    cm.addColorMatch(readBlue); //blue as read by raw sensor
-    cm.addColorMatch(readGreen); //green as read by raw sensor
-    cm.addColorMatch(readRed); //red as read by raw sensor
-    cm.addColorMatch(readYellow); //yellow as read by raw sensor
+    cm.addColorMatch(readBlue); cm.addColorMatch(readGreen); cm.addColorMatch(readRed); cm.addColorMatch(readYellow);
+    sol_Arm = new DoubleSolenoid(ArmConstants.ARM_FWD_PWM, ArmConstants.ARM_BACK_PWM);
+    sc_Spin = new Talon(ArmConstants.SPIN_PWM);
   }
   public String detectColor() { 
     ColorMatchResult matchedColorResult;
@@ -59,13 +65,21 @@ public class ControlPanelArm extends SubsystemBase {
         if (matchedColor.equals(readYellow) && matchedConfidence >= 0.95)
           return "Yellow";
       }
-      return "No Color, Confidence: " + matchedConfidence;
+      return "No Color";
     }
     return "No Match";
   }
-  //todo: motor control methods
+  public void extend() {
+    sol_Arm.set(Value.kForward);
+  }
+  public void retract() {
+    sol_Arm.set(Value.kReverse);
+  }
+  public void spin(double s) {
+    sc_Spin.set(s);
+  }
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    
   }
 }
