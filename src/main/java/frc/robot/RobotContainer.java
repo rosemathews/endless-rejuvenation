@@ -43,7 +43,6 @@ public class RobotContainer {
     butt_armRetract = new JoystickButton(stick_right, ArmConstants.ARM_FWD_BUTTON);
     butt_armAutoSpin = new JoystickButton(stick_right, ArmConstants.SPIN_AUTO_BUTTON);
     configureButtonBindings();
-
     drive.setDefaultCommand(new RunCommand(() -> 
       drive.tankDrive(
         -stick_left.getY(), 
@@ -51,7 +50,6 @@ public class RobotContainer {
       ,drive));
     cpm.setDefaultCommand(new ColorSpinManual(cpm));
   }
-
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
