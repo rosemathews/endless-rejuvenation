@@ -82,5 +82,14 @@ public final class Constants {
         public static final I2C.Port I2C_PORT = I2C.Port.kOnboard;
 
     }
+
+    public static final class IntakeConstants {
+        public static final int ROLLER_PWM = 5;
+        public static final int DROPPER_PWM = 6;
+
+        public static final int BOTTOM_CHANNEL = 6;
+        public static final int TOP_CHANNEL = 7;
+        public static final int BALL_CHANNEL = 8;
+    }
  
 }
