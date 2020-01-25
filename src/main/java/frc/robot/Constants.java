@@ -45,11 +45,11 @@ public final class Constants {
         public static final int DRIVE_PWM_LEFT_FRONT = 3;
     }
     public static final class TurretConstants {
-        public static final int TURRET_PWM_LEFT = 525600;
-        public static final int TURRET_PWM_RIGHT = 525600;
-        public static final int SHOOTER_PWM_LEFT = 525600;
-        public static final int SHOOTER_PWM_RIGHT = 525600;
-        public static final int SUSAN_PWM = 525600;
+        public static final int TURRET_PWM_LEFT = 0;
+        public static final int TURRET_PWM_RIGHT = 0;
+        public static final int SHOOTER_CAN_LEFT = 0;
+        public static final int SHOOTER_CAN_RIGHT = 0;
+        public static final int SUSAN_PWM = 0;
     }
     public static final class EncoderConstants {
         public static final int ENCODER_1_DIO1 = 2;
