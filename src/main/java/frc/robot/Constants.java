@@ -7,7 +7,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.util.Color;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -57,5 +59,28 @@ public final class Constants {
         public static final double DISTANCE_PER_PULSE = 0.5*Math.PI/1024.;
     }
     
+    public static final class ControlPanelArmConstants {
+
+        /* Colors as read by the sensor in the lighting conditions of the shop */
+        public static final Color BLUE = new Color(0.2,0.5,0.3);
+        public static final Color GREEN = new Color(0.25,0.6,0.2);
+        public static final Color RED = new Color(0.6,0.3,0.05);
+        public static final Color YELLOW = new Color(0.42,0.5,0.05);
+
+        /* Ideal Colors */
+        public static final Color IDEAL_BLUE = new Color(0, 1, 1);
+        public static final Color IDEAL_GREEN = new Color(0, 1, 0);
+        public static final Color IDEAL_RED = new Color(1, 0, 0);
+        public static final Color IDEAL_YELLOW = new Color(1, 1, 0);
+
+        /* ARM PWMS */
+        public static final int TALON_PWM = 0;
+        public static final int SOLENOID_FORWARD_CHANNEL = 0;
+        public static final int SOLENOID_REVERSE_CHANNEL = 0;
+
+        /* i2C port */
+        public static final I2C.Port I2C_PORT = I2C.Port.kOnboard;
+
+    }
  
 }
