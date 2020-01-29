@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import frc.robot.Constants.ControlPanelArmConstants;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -21,7 +22,7 @@ public class ControlPanelArm extends SubsystemBase {
   private Color rgb;
   private ColorMatch cm;
   private DoubleSolenoid extender;
-  private Talon armMotor;
+  private SpeedController armMotor;
   
   public ControlPanelArm() {
     colorSensor = new ColorSensorV3(ControlPanelArmConstants.I2C_PORT);
@@ -30,6 +31,7 @@ public class ControlPanelArm extends SubsystemBase {
     cm.addColorMatch(ControlPanelArmConstants.GREEN);
     cm.addColorMatch(ControlPanelArmConstants.RED);
     cm.addColorMatch(ControlPanelArmConstants.YELLOW); 
+    armMotor = new Talon(ControlPanelArmConstants.ARM_MOTOR_CAN);
   }
 
   /**

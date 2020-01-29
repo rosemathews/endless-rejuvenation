@@ -74,7 +74,7 @@ public final class Constants {
         public static final Color IDEAL_YELLOW = new Color(1, 1, 0);
 
         /* ARM PWMS */
-        public static final int TALON_PWM = 0;
+        public static final int ARM_MOTOR_CAN = 0;
         public static final int SOLENOID_FORWARD_CHANNEL = 0;
         public static final int SOLENOID_REVERSE_CHANNEL = 0;
 
@@ -84,8 +84,8 @@ public final class Constants {
     }
 
     public static final class IntakeConstants {
-        public static final int ROLLER_PWM = 5;
-        public static final int DROPPER_PWM = 6;
+        public static final int ROLLER_CAN = 5;
+        public static final int DROPPER_CAN = 6;
 
         public static final int BOTTOM_CHANNEL = 6;
         public static final int TOP_CHANNEL = 7;

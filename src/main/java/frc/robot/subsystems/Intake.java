@@ -20,13 +20,13 @@ public class Intake extends SubsystemBase {
   private DigitalInput bottomSwitch;
   private DigitalInput ballSwitch;
   private DigitalInput topSwitch;
-  private int ballsLoaded;
+  public int ballsLoaded;
   /**
    * Creates a new Intake.
    */
   public Intake() {
-    dropper = new Talon(IntakeConstants.ROLLER_PWM);
-    roller = new Talon(IntakeConstants.DROPPER_PWM);
+    dropper = new Talon(IntakeConstants.ROLLER_CAN);
+    roller = new Talon(IntakeConstants.DROPPER_CAN);
     bottomSwitch = new DigitalInput(IntakeConstants.BOTTOM_CHANNEL);
     ballSwitch = new DigitalInput(IntakeConstants.BALL_CHANNEL);
     topSwitch = new DigitalInput(IntakeConstants.TOP_CHANNEL);
