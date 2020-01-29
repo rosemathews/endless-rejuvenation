@@ -58,9 +58,9 @@ public final class Constants {
         public static final double DISTANCE_PER_PULSE = 0.5*Math.PI/1024.;
     }
     public static final class ArmConstants {
-        public static final int ARM_FWD_PWM = 525600;
-        public static final int ARM_BACK_PWM = 525600;
-        public static final int SPIN_PWM = 525600;
+        public static final int ARM_FWD_PWM = 7;
+        public static final int ARM_BACK_PWM = 8;
+        public static final int SPIN_PWM = 4;
         public static final int ARM_FWD_BUTTON = 5;
         public static final int ARM_BACK_BUTTON = 3;
         public static final int SPIN_AUTO_BUTTON = 2;
