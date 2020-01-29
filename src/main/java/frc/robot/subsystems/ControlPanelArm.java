@@ -7,45 +7,40 @@
 
 package frc.robot.subsystems;
 
+import frc.robot.Constants.ControlPanelArmConstants;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
-
-import com.revrobotics.ColorMatch;
-import com.revrobotics.ColorMatchResult;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ArmConstants;
 
 import com.revrobotics.ColorSensorV3;
+import com.revrobotics.ColorMatch;
+import com.revrobotics.ColorMatchResult;
 
 public class ControlPanelArm extends SubsystemBase {
-  private final I2C.Port i2cPort;
   private final ColorSensorV3 colorSensor;
   private Color rgb;
   private ColorMatch cm;
-  private Color readBlue;
-  private Color readGreen;
-  private Color readRed;
-  private Color readYellow;
-  private DoubleSolenoid sol_Arm;
-  private SpeedController sc_Spin;
+  private DoubleSolenoid extender;
+  private SpeedController armMotor;
+  
   public ControlPanelArm() {
-    i2cPort = I2C.Port.kOnboard;
-    colorSensor = new ColorSensorV3(i2cPort);
+    colorSensor = new ColorSensorV3(ControlPanelArmConstants.I2C_PORT);
     cm = new ColorMatch();
-    readBlue = new Color(0.2,0.5,0.3);
-    readGreen = new Color(0.25,0.6,0.2);
-    readRed = new Color(0.6,0.3,0.05);
-    readYellow = new Color(0.42,0.5,0.05);
-    cm.addColorMatch(readBlue); cm.addColorMatch(readGreen); cm.addColorMatch(readRed); cm.addColorMatch(readYellow);
-    sol_Arm = new DoubleSolenoid(ArmConstants.ARM_FWD_PWM, ArmConstants.ARM_BACK_PWM);
-    sc_Spin = new Talon(ArmConstants.SPIN_PWM);
+    cm.addColorMatch(ControlPanelArmConstants.BLUE); 
+    cm.addColorMatch(ControlPanelArmConstants.GREEN);
+    cm.addColorMatch(ControlPanelArmConstants.RED);
+    cm.addColorMatch(ControlPanelArmConstants.YELLOW); 
+    armMotor = new Talon(ControlPanelArmConstants.ARM_MOTOR_CAN);
   }
-  public String detectColor() { 
+
+  /**
+   * Detects and matches the color out of the 4 possible.
+   * @return the color detected, either 'B'(lue), 'G'(reen), 'R'(ed), 'Y'(ellow)
+   */
+  public char detectColor() { 
     ColorMatchResult matchedColorResult;
     Color matchedColor;
     double matchedConfidence;
@@ -56,27 +51,44 @@ public class ControlPanelArm extends SubsystemBase {
       matchedColor = matchedColorResult.color;
       matchedConfidence = matchedColorResult.confidence;
       if (matchedConfidence >= 0.9) {
-        if (matchedColor.equals(readBlue))
-          return "Blue";
-        if (matchedColor.equals(readGreen))
-          return "Green";
-        if (matchedColor.equals(readRed))
-          return "Red";
-        if (matchedColor.equals(readYellow) && matchedConfidence >= 0.95)
-          return "Yellow";
+        if (matchedColor.equals(ControlPanelArmConstants.BLUE))
+          return 'B';
+
+        if (matchedColor.equals(ControlPanelArmConstants.GREEN))
+          return 'G';
+
+        if (matchedColor.equals(ControlPanelArmConstants.RED))
+          return 'R';
+
+        if (matchedColor.equals(ControlPanelArmConstants.YELLOW) && matchedConfidence >= 0.95)
+          return 'Y';
+
       }
-      return "No Color";
+      return '?';
     }
-    return "No Match";
+    return '?';
   }
-  public void extend() {
-    sol_Arm.set(Value.kForward);
+
+  /**
+   * Sets the armMotor to 0.35
+   */
+  public void spin(){
+    armMotor.set(0.35);
   }
-  public void retract() {
-    sol_Arm.set(Value.kReverse);
+
+  /**
+   * Stops the armMotor
+   */
+  public void stopSpin(){
+    armMotor.set(0);
   }
-  public void spin(double s) {
-    sc_Spin.set(s);
+
+  /**
+   * Sets the value of the solenoid
+   * @param v DoubleSolenoid value to set the extender to
+   */
+  public void setExtender(DoubleSolenoid.Value v){
+    extender.set(v);
   }
   @Override
   public void periodic() {
