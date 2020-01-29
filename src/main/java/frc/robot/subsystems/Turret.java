@@ -8,21 +8,27 @@
 package frc.robot.subsystems;
 
 import frc.robot.Constants.TurretConstants;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Turret extends SubsystemBase {
-  private SpeedController sc_TurretAngleL, sc_TurretAngleR, sc_ShooterL, sc_ShooterR, sc_Susan;
-  private SpeedControllerGroup scg_Shooter;
+  private SpeedController turretAngleL, turretAngleR, shooterL, shooterR, susan;
+  private SpeedControllerGroup shooter;
   public Turret() {
-    sc_TurretAngleL = new Talon(TurretConstants.TURRET_PWM_LEFT);
-    sc_TurretAngleR = new Talon(TurretConstants.TURRET_PWM_RIGHT);
-    sc_ShooterL = new Talon(TurretConstants.SHOOTER_PWM_LEFT);
-    sc_ShooterR = new Talon(TurretConstants.SHOOTER_PWM_RIGHT);
-    sc_Susan = new Talon(TurretConstants.SUSAN_PWM);
-    scg_Shooter = new SpeedControllerGroup(sc_ShooterL, sc_ShooterR);
+    turretAngleL = new Talon(TurretConstants.TURRET_PWM_LEFT);
+    turretAngleR = new Talon(TurretConstants.TURRET_PWM_RIGHT);
+    shooterL = new CANSparkMax(TurretConstants.SHOOTER_CAN_LEFT, MotorType.kBrushless);
+    shooterR = new CANSparkMax(TurretConstants.SHOOTER_CAN_RIGHT, MotorType.kBrushless);
+    susan = new Talon(TurretConstants.SUSAN_PWM);
+    shooter = new SpeedControllerGroup(shooterL, shooterR);
+  }
+
+  public void shoot(){
+    shooter.set(1);
   }
 
   @Override

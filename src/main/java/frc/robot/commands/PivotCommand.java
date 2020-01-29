@@ -8,8 +8,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Vision;
 
@@ -34,7 +32,8 @@ DriveTrain d;
   @Override
   public void initialize() {
   }
-  void TurnAtSpeed(double speed) {
+
+  void turnAtSpeed(double speed) {
     d.tankDrive(-speed, speed);
   }
   // Called repeatedly when this Command is scheduled to run
@@ -44,15 +43,15 @@ DriveTrain d;
       if (vision.getTX() != 0.0) {
         if (vision.getTX() > 1.0) {
           if (vision.getTX() > 0.5) {
-            TurnAtSpeed(0.2);
+            turnAtSpeed(0.2);
           }else {
-            TurnAtSpeed(0.1);
+            turnAtSpeed(0.1);
           }
         }else if (vision.getTX() < -1.0) {
           if (vision.getTX() < -0.5) {
-            TurnAtSpeed(-0.2);
+            turnAtSpeed(-0.2);
           }else {
-            TurnAtSpeed(-0.1);
+            turnAtSpeed(-0.1);
           }
         }
       }
