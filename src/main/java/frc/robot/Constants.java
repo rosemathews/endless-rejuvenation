@@ -74,13 +74,17 @@ public final class Constants {
         public static final Color IDEAL_YELLOW = new Color(1, 1, 0);
 
         /* ARM PWMS */
-        public static final int ARM_MOTOR_CAN = 0;
+        public static final int ARM_MOTOR_CAN = 1;
         public static final int SOLENOID_FORWARD_CHANNEL = 0;
         public static final int SOLENOID_REVERSE_CHANNEL = 0;
 
         /* i2C port */
         public static final I2C.Port I2C_PORT = I2C.Port.kOnboard;
 
+        /*Button Mapping*/
+        public static final int ARM_FWD_BUTTON = 5;
+        public static final int ARM_REVERSE_BUTTON = 3;
+        public static final int SPIN_AUTO_BUTTON = 4;
     }
 
     public static final class IntakeConstants {

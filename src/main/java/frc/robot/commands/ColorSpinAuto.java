@@ -14,18 +14,18 @@ import frc.robot.subsystems.ControlPanelArm;
 
 public class ColorSpinAuto extends CommandBase {
   ArrayList<String> wheelOrder;
-  String colorReading;
+  char colorReading;
   ControlPanelArm arm;
-  String colorToSpin;
-  public ColorSpinAuto(ControlPanelArm a, String color) {
+  char colorToSpin;
+  public ColorSpinAuto(ControlPanelArm a, char color) {
     addRequirements(a);
     arm = a;
     colorToSpin = color;
     wheelOrder = new ArrayList<String>(); //no use until PID
-    wheelOrder.add("Yellow"); 
-    wheelOrder.add("Red"); 
-    wheelOrder.add("Green"); 
-    wheelOrder.add("Blue");
+    wheelOrder.add("Y"); 
+    wheelOrder.add("R"); 
+    wheelOrder.add("G"); 
+    wheelOrder.add("B");
     
   }
 
@@ -39,7 +39,7 @@ public class ColorSpinAuto extends CommandBase {
   public void execute() {
     //todo: implement PID
     colorReading = arm.detectColor();
-    arm.spin(1.0);
+    arm.spin();
   }
 
   // Called once the command ends or is interrupted.
@@ -50,6 +50,6 @@ public class ColorSpinAuto extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return colorReading.equals(colorToSpin);
+    return colorReading == colorToSpin;
   }
 }

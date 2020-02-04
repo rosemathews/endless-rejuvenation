@@ -14,8 +14,9 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.*;
 import frc.robot.Constants;
-import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.ControlPanelArmConstants;
 import frc.robot.commands.*;
+import frc.robot.commands.controlpanelarm.*;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -26,7 +27,7 @@ import frc.robot.commands.*;
 public class RobotContainer {
   //Subsystems
   private final DriveTrain drive = new DriveTrain();
-  private final ControlPanelArm cpm = new ControlPanelArm();
+  private final ControlPanelArm cpa = new ControlPanelArm();
 
   //Joysticks
   private final Joystick stick_left = Constants.ContainerConstants.LEFT_JOYSTICK;
@@ -39,16 +40,23 @@ public class RobotContainer {
    */
   public RobotContainer() {
     // Configure the button bindings
-    butt_armExtend = new JoystickButton(stick_right, ArmConstants.ARM_FWD_BUTTON);
-    butt_armRetract = new JoystickButton(stick_right, ArmConstants.ARM_FWD_BUTTON);
-    butt_armAutoSpin = new JoystickButton(stick_right, ArmConstants.SPIN_AUTO_BUTTON);
+    butt_armExtend = new JoystickButton(stick_right, ControlPanelArmConstants.ARM_FWD_BUTTON);
+    butt_armRetract = new JoystickButton(stick_right, ControlPanelArmConstants.ARM_FWD_BUTTON);
+    butt_armAutoSpin = new JoystickButton(stick_right, ControlPanelArmConstants.SPIN_AUTO_BUTTON);
     configureButtonBindings();
+    /*
     drive.setDefaultCommand(new RunCommand(() -> 
       drive.tankDrive(
         -stick_left.getY(), 
         -stick_right.getY())
       ,drive));
-    cpm.setDefaultCommand(new ColorSpinManual(cpm));
+    */
+    drive.setDefaultCommand(new RunCommand(() -> 
+      drive.arcadeDrive(
+        stick_right.getY(), 
+        stick_right.getX())
+    ));
+    cpa.setDefaultCommand(new ColorSpinManual(cpa));
   }
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
@@ -57,9 +65,9 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    butt_armExtend.whenPressed(new ArmExtend(cpm));
-    butt_armRetract.whenPressed(new ArmRetract(cpm));
-    butt_armAutoSpin.whenPressed(new ColorSpinAuto(cpm, "Red")); //TODO: how to receive color from game?
+    butt_armExtend.whenPressed(new ArmExtend(cpa));
+    butt_armRetract.whenPressed(new ArmRetract(cpa));
+    butt_armAutoSpin.whenPressed(new ControlPanelPosCtrl(cpa));
   }
 
   /**

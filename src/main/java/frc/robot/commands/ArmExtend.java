@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ControlPanelArm;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class ArmExtend extends CommandBase {
   ControlPanelArm arm;
@@ -26,7 +27,7 @@ public class ArmExtend extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.extend();
+    arm.setExtender(DoubleSolenoid.Value.kForward);
   }
 
   // Called once the command ends or is interrupted.
