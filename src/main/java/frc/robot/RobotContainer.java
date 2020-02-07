@@ -30,7 +30,6 @@ public class RobotContainer {
   private final ControlPanelArm cpa = new ControlPanelArm();
 
   //Joysticks
-  private final Joystick stick_left = Constants.ContainerConstants.LEFT_JOYSTICK;
   private final Joystick stick_right = Constants.ContainerConstants.RIGHT_JOYSTICK;
   private final JoystickButton butt_armExtend;
   private final JoystickButton butt_armRetract;
@@ -55,7 +54,8 @@ public class RobotContainer {
       drive.arcadeDrive(
         stick_right.getY(), 
         stick_right.getX())
-    ));
+        ,drive
+        ));
     cpa.setDefaultCommand(new ColorSpinManual(cpa));
   }
   /**
