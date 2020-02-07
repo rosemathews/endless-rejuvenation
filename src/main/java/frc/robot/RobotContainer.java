@@ -11,12 +11,12 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.*;
 import frc.robot.Constants;
-import frc.robot.commands.PivotCommand;
+import frc.robot.Constants.ControlPanelArmConstants;
+import frc.robot.commands.*;
+import frc.robot.commands.controlpanelarm.*;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -26,25 +26,37 @@ import frc.robot.commands.PivotCommand;
  */
 public class RobotContainer {
   //Subsystems
-  // private final DriveTrain drive = new DriveTrain();
+  private final DriveTrain drive = new DriveTrain();
+  private final ControlPanelArm cpa = new ControlPanelArm();
 
   //Joysticks
-  public Vision v = new Vision();
-  private final Joystick stick_left = Constants.OIConstants.LEFT_JOYSTICK;
-  private final Joystick stick_right = Constants.OIConstants.RIGHT_JOYSTICK;
-  private static Button button;
-  public static final DriveTrain drive = new DriveTrain();
+  private final Joystick stick_right = Constants.ContainerConstants.RIGHT_JOYSTICK;
+  private final JoystickButton butt_armExtend;
+  private final JoystickButton butt_armRetract;
+  private final JoystickButton butt_armAutoSpin;
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
+    butt_armExtend = new JoystickButton(stick_right, ControlPanelArmConstants.ARM_FWD_BUTTON);
+    butt_armRetract = new JoystickButton(stick_right, ControlPanelArmConstants.ARM_FWD_BUTTON);
+    butt_armAutoSpin = new JoystickButton(stick_right, ControlPanelArmConstants.SPIN_AUTO_BUTTON);
     configureButtonBindings();
+    /*
     drive.setDefaultCommand(new RunCommand(() -> 
       drive.tankDrive(
         -stick_left.getY(), 
         -stick_right.getY())
       ,drive));
+    */
+    drive.setDefaultCommand(new RunCommand(() -> 
+      drive.arcadeDrive(
+        stick_right.getY(), 
+        stick_right.getX())
+        ,drive
+        ));
+    cpa.setDefaultCommand(new ColorSpinManual(cpa));
   }
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
@@ -53,8 +65,9 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    button = new JoystickButton(stick_left, 5);
-    // button.whileHeld(new AutoCommand(drive));
+    butt_armExtend.whenPressed(new ArmExtend(cpa));
+    butt_armRetract.whenPressed(new ArmRetract(cpa));
+    butt_armAutoSpin.whenPressed(new ControlPanelPosCtrl(cpa));
   }
 
   /**

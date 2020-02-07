@@ -13,7 +13,11 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.ControlPanelArmConstants;
+
 import com.revrobotics.ColorSensorV3;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 
@@ -22,7 +26,7 @@ public class ControlPanelArm extends SubsystemBase {
   private Color rgb;
   private ColorMatch cm;
   private DoubleSolenoid extender;
-  private SpeedController armMotor;
+  private TalonSRX armMotor;
   
   public ControlPanelArm() {
     colorSensor = new ColorSensorV3(ControlPanelArmConstants.I2C_PORT);
@@ -31,7 +35,7 @@ public class ControlPanelArm extends SubsystemBase {
     cm.addColorMatch(ControlPanelArmConstants.GREEN);
     cm.addColorMatch(ControlPanelArmConstants.RED);
     cm.addColorMatch(ControlPanelArmConstants.YELLOW); 
-    armMotor = new Talon(ControlPanelArmConstants.ARM_MOTOR_CAN);
+    armMotor = new TalonSRX(ControlPanelArmConstants.ARM_MOTOR_CAN);
   }
 
   /**
@@ -71,14 +75,14 @@ public class ControlPanelArm extends SubsystemBase {
    * Sets the armMotor to 0.35
    */
   public void spin(){
-    armMotor.set(0.35);
+    armMotor.set(ControlMode.PercentOutput, 1.0);
   }
 
   /**
    * Stops the armMotor
    */
   public void stopSpin(){
-    armMotor.set(0);
+    armMotor.set(ControlMode.PercentOutput, 0.0);
   }
 
   /**
@@ -88,9 +92,8 @@ public class ControlPanelArm extends SubsystemBase {
   public void setExtender(DoubleSolenoid.Value v){
     extender.set(v);
   }
-
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    
   }
 }

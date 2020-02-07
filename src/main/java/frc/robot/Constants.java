@@ -25,7 +25,7 @@ public final class Constants {
      * Constants for the Control System of the Robot
      * 
      */
-    public static final class OIConstants{
+    public static final class ContainerConstants{
         public static final int LEFT_JOYSTICK_USB = 0;
         public static final int RIGHT_JOYSTICK_USB = 1;
 
@@ -45,17 +45,17 @@ public final class Constants {
         public static final int DRIVE_PWM_LEFT_FRONT = 3;
     }
     public static final class TurretConstants {
-        public static final int TURRET_PWM_LEFT = 0;
-        public static final int TURRET_PWM_RIGHT = 0;
-        public static final int SHOOTER_CAN_LEFT = 0;
-        public static final int SHOOTER_CAN_RIGHT = 0;
-        public static final int SUSAN_PWM = 0;
+        public static final int TURRET_PWM_LEFT = 4;
+        public static final int TURRET_PWM_RIGHT = 5;
+        public static final int SHOOTER_CAN_LEFT = 2;
+        public static final int SHOOTER_CAN_RIGHT = 3;
+        public static final int SUSAN_PWM = 6;
     }
     public static final class EncoderConstants {
         public static final int ENCODER_1_DIO1 = 2;
         public static final int ENCODER_1_DIO2 = 3;
         public static final int ENCODER_2_DIO1 = 0;
-        public static final int ENCODER_2_DIO2 = 2;
+        public static final int ENCODER_2_DIO2 = 1;
         public static final double DISTANCE_PER_PULSE = 0.5*Math.PI/1024.;
     }
     
@@ -74,22 +74,26 @@ public final class Constants {
         public static final Color IDEAL_YELLOW = new Color(1, 1, 0);
 
         /* ARM PWMS */
-        public static final int ARM_MOTOR_CAN = 0;
-        public static final int SOLENOID_FORWARD_CHANNEL = 0;
-        public static final int SOLENOID_REVERSE_CHANNEL = 0;
+        public static final int ARM_MOTOR_CAN = 1;
+        public static final int SOLENOID_FORWARD_CHANNEL = 7;
+        public static final int SOLENOID_REVERSE_CHANNEL = 8;
 
         /* i2C port */
         public static final I2C.Port I2C_PORT = I2C.Port.kOnboard;
 
+        /*Button Mapping*/
+        public static final int ARM_FWD_BUTTON = 5;
+        public static final int ARM_REVERSE_BUTTON = 3;
+        public static final int SPIN_AUTO_BUTTON = 4;
     }
 
     public static final class IntakeConstants {
-        public static final int ROLLER_CAN = 5;
-        public static final int DROPPER_CAN = 6;
+        public static final int ROLLER_CAN = 10;
+        public static final int DROPPER_CAN = 11;
 
-        public static final int BOTTOM_CHANNEL = 6;
-        public static final int TOP_CHANNEL = 7;
-        public static final int BALL_CHANNEL = 8;
+        public static final int BOTTOM_CHANNEL = 12;
+        public static final int TOP_CHANNEL = 13;
+        public static final int BALL_CHANNEL = 14;
     }
  
 }

@@ -5,18 +5,28 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.autonomous;
+package frc.robot.commands;
 
-import frc.robot.Robot;
+import java.util.ArrayList;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.ControlPanelArm;
 
-public class AutoMove extends CommandBase {
-  private DriveTrain drive;
-  private double encDiff;
-  public AutoMove(DriveTrain d) {
-    addRequirements(d);
-    drive = d;
+public class ColorSpinAuto extends CommandBase {
+  ArrayList<String> wheelOrder;
+  char colorReading;
+  ControlPanelArm arm;
+  char colorToSpin;
+  public ColorSpinAuto(ControlPanelArm a, char color) {
+    addRequirements(a);
+    arm = a;
+    colorToSpin = color;
+    wheelOrder = new ArrayList<String>(); //no use until PID
+    wheelOrder.add("Y"); 
+    wheelOrder.add("R"); 
+    wheelOrder.add("G"); 
+    wheelOrder.add("B");
+    
   }
 
   // Called when the command is initially scheduled.
@@ -27,27 +37,19 @@ public class AutoMove extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    encDiff = drive.getEncLeftDistance() - drive.getEncRightDistance();
-    if (encDiff > 0.004) { //at wheel dist = 22.5 in, assuming no skid, this allows 0.1 degree drift before correcting (two encoder steps)
-      drive.tankDrive(0.9, 1.0); //CALIBRATE
-    } else if (encDiff < -0.004) {
-      drive.tankDrive(1.0, 0.9); //CALIBRATE
-    } else {
-      drive.tankDrive(1.0, 1.0);
-    }
-    
+    //todo: implement PID
+    colorReading = arm.detectColor();
+    arm.spin();
   }
-  
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (drive.getEncLeftDistance() > 0.5 && drive.getEncRightDistance() > 0.5); //CALIBRATE
+    return colorReading == colorToSpin;
   }
 }
