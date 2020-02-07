@@ -84,7 +84,7 @@ public final class Constants {
         /*Button Mapping*/
         public static final int ARM_FWD_BUTTON = 5;
         public static final int ARM_REVERSE_BUTTON = 3;
-        public static final int SPIN_AUTO_BUTTON = 4;
+        public static final int SPIN_AUTO_BUTTON = 12;
     }
 
     public static final class IntakeConstants {
@@ -95,5 +95,10 @@ public final class Constants {
         public static final int TOP_CHANNEL = 13;
         public static final int BALL_CHANNEL = 14;
     }
- 
+    
+    public static final class HangerConstants {
+        public static final int CLIMBER_CAN = 15;
+        public static final int CLIMB_UP_BUTTON = 6;
+        public static final int CLIMB_DOWN_BUTTON = 4;
+    }
 }
