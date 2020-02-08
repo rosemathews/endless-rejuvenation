@@ -33,9 +33,9 @@ public class ControlPanelRotCtrl extends CommandBase {
     int halfRotations = 0;
     while(halfRotations < 7){
       halfRotations += initialColor == arm.detectColor() ? 1 : 0;
-      arm.spin();
+      arm.spinUntilNextColor();
     }
-    arm.stopSpin();
+    
   }
 
   // Called once the command ends or is interrupted.

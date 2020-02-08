@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.util.Color;
+import com.kauailabs.navx.frc.AHRS;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -84,7 +85,8 @@ public final class Constants {
         /*Button Mapping*/
         public static final int ARM_FWD_BUTTON = 5;
         public static final int ARM_REVERSE_BUTTON = 3;
-        public static final int SPIN_AUTO_BUTTON = 4;
+        public static final int ROT_CONTROL_BUTTON = 12;
+        public static final int POS_CONTROL_BUTTON = 11;
     }
 
     public static final class IntakeConstants {
@@ -95,5 +97,17 @@ public final class Constants {
         public static final int TOP_CHANNEL = 13;
         public static final int BALL_CHANNEL = 14;
     }
- 
+    
+    public static final class HangerConstants {
+        public static final int CLIMBER_CAN = 15;
+        public static final int CLIMB_UP_BUTTON = 6;
+        public static final int CLIMB_DOWN_BUTTON = 4;
+    }
+
+	public static final class NAVXConstants {
+        public static final AHRS NAVX = new AHRS();
+        double P = 0;
+        double I = 0;
+        double D = 0;
+    }
 }

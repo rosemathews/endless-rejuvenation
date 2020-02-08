@@ -5,21 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.autonomous;
 
-
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ControlPanelArm;
-import frc.robot.Constants.ContainerConstants;
+import frc.robot.Constants;
+import frc.robot.subsystems.DriveTrain;
 
-public class ColorSpinManual extends CommandBase {
-  ControlPanelArm arm;
-  Joystick spinStick;
-  public ColorSpinManual(ControlPanelArm a) {
-    addRequirements(a);
-    arm = a;
-    spinStick = ContainerConstants.RIGHT_JOYSTICK;
+public class AutoTurn extends CommandBase {
+  private DriveTrain drive;
+  double angle, error, speed;
+  boolean done;
+  public AutoTurn(DriveTrain d, double angle, double error, double speed) {
+    addRequirements(d);
+    drive = d;
+    this.angle = angle;
+    this.error = error;
+    this.speed = speed;
   }
 
   // Called when the command is initially scheduled.
@@ -30,7 +31,16 @@ public class ColorSpinManual extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.spin();
+    while (done == false) {
+      double navXAngle = Constants.NAVXConstants.NAVX.getYaw();
+      if (navXAngle < angle - error) {
+        drive.tankDrive(-speed, speed);
+      }else if (navXAngle > angle + error){
+        drive.tankDrive(speed, -speed);
+      }else{
+        done = true;
+      }
+    }
   }
 
   // Called once the command ends or is interrupted.

@@ -14,9 +14,11 @@ import frc.robot.subsystems.DriveTrain;
 public class AutoMove extends CommandBase {
   private DriveTrain drive;
   private double encDiff;
-  public AutoMove(DriveTrain d) {
+  private double moveDistance;
+  public AutoMove(double distance, DriveTrain d) {
     addRequirements(d);
     drive = d;
+    moveDistance = distance;
   }
 
   // Called when the command is initially scheduled.
@@ -42,12 +44,13 @@ public class AutoMove extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    
+    drive.resetEncLeft();
+    drive.resetEncRight();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (drive.getEncLeftDistance() > 0.5 && drive.getEncRightDistance() > 0.5); //CALIBRATE
+    return (drive.getEncLeftDistance() > moveDistance && drive.getEncRightDistance() > moveDistance); //CALIBRATE
   }
 }
