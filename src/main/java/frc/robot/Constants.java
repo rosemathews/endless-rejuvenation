@@ -48,8 +48,8 @@ public final class Constants {
     public static final class TurretConstants {
         public static final int TURRET_PWM_LEFT = 4;
         public static final int TURRET_PWM_RIGHT = 5;
-        public static final int SHOOTER_CAN_LEFT = 2;
-        public static final int SHOOTER_CAN_RIGHT = 3;
+        public static final int SHOOTER_CAN_LEFT = 1;
+        public static final int SHOOTER_CAN_RIGHT = 2;
         public static final int SUSAN_PWM = 6;
     }
     public static final class EncoderConstants {
