@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import frc.robot.Constants.ControlPanelArmConstants;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
@@ -26,7 +27,7 @@ public class ControlPanelArm extends SubsystemBase {
   private Color rgb;
   private ColorMatch cm;
   private DoubleSolenoid extender;
-  private TalonSRX armMotor;
+  private DigitalOutput spin;
   
   public ControlPanelArm() {
     colorSensor = new ColorSensorV3(ControlPanelArmConstants.I2C_PORT);
@@ -35,7 +36,9 @@ public class ControlPanelArm extends SubsystemBase {
     cm.addColorMatch(ControlPanelArmConstants.GREEN);
     cm.addColorMatch(ControlPanelArmConstants.RED);
     cm.addColorMatch(ControlPanelArmConstants.YELLOW); 
-    armMotor = new TalonSRX(ControlPanelArmConstants.ARM_MOTOR_CAN);
+    spin = new DigitalOutput(4);
+    spin.enablePWM(0.375);
+    spin.setPWMRate(250);
   }
 
   /**
@@ -71,18 +74,22 @@ public class ControlPanelArm extends SubsystemBase {
     return '?';
   }
 
-  /**
-   * Sets the armMotor to 0.35
-   */
+  
   public void spin(){
-    armMotor.set(ControlMode.PercentOutput, 1.0);
+    spin.updateDutyCycle((0.25*0.5+1.5)/4);
   }
-
+  public void spinUntilNextColor() {
+    char initColor = detectColor();
+    while (initColor == detectColor()) {
+      spin();
+    }
+    stopSpin();
+  }
   /**
    * Stops the armMotor
    */
   public void stopSpin(){
-    armMotor.set(ControlMode.PercentOutput, 0.0);
+    spin.updateDutyCycle(0.0);
   }
 
   /**

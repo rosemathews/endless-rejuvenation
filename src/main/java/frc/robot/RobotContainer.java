@@ -33,7 +33,8 @@ public class RobotContainer {
   private final Joystick stick_right = Constants.ContainerConstants.RIGHT_JOYSTICK;
   private final JoystickButton butt_armExtend;
   private final JoystickButton butt_armRetract;
-  private final JoystickButton butt_armAutoSpin;
+  private final JoystickButton butt_rotControl;
+  private final JoystickButton butt_colorControl;
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -41,7 +42,8 @@ public class RobotContainer {
     // Configure the button bindings
     butt_armExtend = new JoystickButton(stick_right, ControlPanelArmConstants.ARM_FWD_BUTTON);
     butt_armRetract = new JoystickButton(stick_right, ControlPanelArmConstants.ARM_FWD_BUTTON);
-    butt_armAutoSpin = new JoystickButton(stick_right, ControlPanelArmConstants.SPIN_AUTO_BUTTON);
+    butt_rotControl = new JoystickButton(stick_right, ControlPanelArmConstants.ROT_CONTROL_BUTTON);
+    butt_colorControl = new JoystickButton(stick_right, ControlPanelArmConstants.POS_CONTROL_BUTTON);
     configureButtonBindings();
     /*
     drive.setDefaultCommand(new RunCommand(() -> 
@@ -56,7 +58,6 @@ public class RobotContainer {
         stick_right.getX())
         ,drive
         ));
-    cpa.setDefaultCommand(new ColorSpinManual(cpa));
   }
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
@@ -67,7 +68,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     butt_armExtend.whenPressed(new ArmExtend(cpa));
     butt_armRetract.whenPressed(new ArmRetract(cpa));
-    butt_armAutoSpin.whenPressed(new ControlPanelPosCtrl(cpa));
+    butt_rotControl.whenPressed(new ControlPanelRotCtrl(cpa));
+    butt_colorControl.whenPressed(new ControlPanelPosCtrl(cpa));
   }
 
   /**

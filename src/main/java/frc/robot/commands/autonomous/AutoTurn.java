@@ -8,17 +8,19 @@
 package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
 
 public class AutoTurn extends CommandBase {
   private DriveTrain drive;
-  private double turnDistance;
-  private boolean clockwise;
-  public AutoTurn(double degrees, DriveTrain d) {
+  double angle, error, speed;
+  boolean done;
+  public AutoTurn(DriveTrain d, double angle, double error, double speed) {
     addRequirements(d);
     drive = d;
-    turnDistance = degrees * 0.0163; //feet per degree
-    clockwise = turnDistance > 0;
+    this.angle = angle;
+    this.error = error;
+    this.speed = speed;
   }
 
   // Called when the command is initially scheduled.
@@ -29,10 +31,15 @@ public class AutoTurn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (clockwise) {
-      drive.tankDrive(1,-1);
-    } else {
-      drive.tankDrive(-1,1);
+    while (done == false) {
+      double navXAngle = Constants.NAVXConstants.NAVX.getYaw();
+      if (navXAngle < angle - error) {
+        drive.tankDrive(-speed, speed);
+      }else if (navXAngle > angle + error){
+        drive.tankDrive(speed, -speed);
+      }else{
+        done = true;
+      }
     }
   }
 
@@ -44,6 +51,6 @@ public class AutoTurn extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(drive.getEncLeftDistance()) > turnDistance;
+    return false;
   }
 }
