@@ -16,37 +16,55 @@ public class ControlPanelRotCtrl extends CommandBase {
    */
   private ControlPanelArm arm;
   private char initialColor;
-  public ControlPanelRotCtrl(ControlPanelArm cpa) {
+  private char lastColor = '?';
+  private char currentColor;
+  private int halfRotations;
+  private int targetRotations;
+  private int totalChanges;
+  public ControlPanelRotCtrl(ControlPanelArm cpa, int rot) {
     addRequirements(cpa);
     arm = cpa;
+    targetRotations = rot;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    System.out.println("run Da Command");
     initialColor = arm.detectColor();
+    halfRotations = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    int halfRotations = 0;
-    while(halfRotations < 7){
-      halfRotations += initialColor == arm.detectColor() ? 1 : 0;
-      arm.spinUntilNextColor();
+    arm.spin(0.22);
+    currentColor = arm.detectColor();
+    if (currentColor != '?') {
+      if (currentColor != lastColor) {
+        totalChanges++;
+        System.out.println("color change! from " + lastColor + " to: " + currentColor + ". " + totalChanges);
+        if (currentColor == initialColor && totalChanges != 0) {
+          halfRotations++;
+          System.out.println("one half rotation detected! rotations: " + halfRotations);
+        }
+      }
+      lastColor = currentColor;
+    }else{
+      System.out.println("No color detected!");
     }
-    
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     arm.stopSpin();
+    System.out.println("stopping");
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return halfRotations >= targetRotations;
   }
 }

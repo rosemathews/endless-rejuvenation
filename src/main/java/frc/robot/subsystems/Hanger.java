@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -15,13 +16,16 @@ import frc.robot.Constants;
 
 public class Hanger extends SubsystemBase {
   private TalonSRX hanger;
+  private DoubleSolenoid banger;
   public Hanger() {
-    hanger = new TalonSRX(Constants.HangerConstants.CLIMBER_CAN);
+    hanger = new TalonSRX(HangerConstants.CLIMBER_CAN);
+    banger = new DoubleSolenoid(HangerConstants.HANGER_SOLENOID_FORWARD_CHANNEL, HangerConstants.HANGER_SOLENOID_REVERSE_CHANNEL);
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
     
+  }
+  public void climb(double speed) {
   }
 }

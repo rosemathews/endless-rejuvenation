@@ -30,11 +30,11 @@ public class RobotContainer {
   private final ControlPanelArm cpa = new ControlPanelArm();
 
   //Joysticks
-  private final Joystick stick_right = Constants.ContainerConstants.RIGHT_JOYSTICK;
+  private final Joystick stick_right = Constants.ContainerConstants.JOYSTICK;
   private final JoystickButton butt_armExtend;
   private final JoystickButton butt_armRetract;
   private final JoystickButton butt_rotControl;
-  private final JoystickButton butt_colorControl;
+  private final JoystickButton butt_posControl;
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -43,7 +43,7 @@ public class RobotContainer {
     butt_armExtend = new JoystickButton(stick_right, ControlPanelArmConstants.ARM_FWD_BUTTON);
     butt_armRetract = new JoystickButton(stick_right, ControlPanelArmConstants.ARM_FWD_BUTTON);
     butt_rotControl = new JoystickButton(stick_right, ControlPanelArmConstants.ROT_CONTROL_BUTTON);
-    butt_colorControl = new JoystickButton(stick_right, ControlPanelArmConstants.POS_CONTROL_BUTTON);
+    butt_posControl = new JoystickButton(stick_right, ControlPanelArmConstants.POS_CONTROL_BUTTON);
     configureButtonBindings();
     /*
     drive.setDefaultCommand(new RunCommand(() -> 
@@ -68,8 +68,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     butt_armExtend.whenPressed(new ArmExtend(cpa));
     butt_armRetract.whenPressed(new ArmRetract(cpa));
-    butt_rotControl.whenPressed(new ControlPanelRotCtrl(cpa));
-    butt_colorControl.whenPressed(new ControlPanelPosCtrl(cpa));
+    butt_rotControl.whenPressed(new ControlPanelRotCtrl(cpa, 7));
+    butt_posControl.whenPressed(new ControlPanelPosCtrl(cpa));
   }
 
   /**
