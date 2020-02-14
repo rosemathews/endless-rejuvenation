@@ -26,7 +26,7 @@ import frc.robot.commands.controlpanelarm.*;
  */
 public class RobotContainer {
   //Subsystems
-  private final DriveTrain drive = new DriveTrain();
+  private final Drivetrain drive = new Drivetrain();
   private final ControlPanelArm cpa = new ControlPanelArm();
 
   //Joysticks

@@ -9,13 +9,13 @@ package frc.robot.commands.autonomous;
 
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Drivetrain;
 
 public class AutoMove extends CommandBase {
-  private DriveTrain drive;
+  private Drivetrain drive;
   private double encDiff;
   private double moveDistance;
-  public AutoMove(double distance, DriveTrain d) {
+  public AutoMove(Drivetrain d, double distance) {
     addRequirements(d);
     drive = d;
     moveDistance = distance;

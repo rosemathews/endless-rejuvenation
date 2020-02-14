@@ -18,7 +18,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.EncoderConstants;
 
 
-public class DriveTrain extends SubsystemBase {
+public class Drivetrain extends SubsystemBase {
   
   private SpeedController sc_RightB, sc_RightF, sc_LeftB, sc_LeftF;
   
@@ -32,7 +32,7 @@ public class DriveTrain extends SubsystemBase {
   /**
    * Creates a new DriveTrain.
    */
-  public DriveTrain() {
+  public Drivetrain() {
     sc_RightB = new Talon(DriveConstants.DRIVE_PWM_RIGHT_BACK);
     sc_RightF = new Talon(DriveConstants.DRIVE_PWM_RIGHT_FRONT);
     sc_LeftB = new Talon(DriveConstants.DRIVE_PWM_LEFT_BACK);
