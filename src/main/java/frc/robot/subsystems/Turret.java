@@ -10,25 +10,35 @@ package frc.robot.subsystems;
 import frc.robot.Constants.TurretConstants;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.DigitalOutput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Turret extends SubsystemBase {
-  private SpeedController turretAngleL, turretAngleR, shooterL, shooterR, susan;
+  private SpeedController shooterL, shooterR;
   private SpeedControllerGroup shooter;
+  private DigitalOutput turret;
+  private Encoder enc_turret;
   public Turret() {
-    turretAngleL = new Talon(TurretConstants.TURRET_PWM_LEFT);
-    turretAngleR = new Talon(TurretConstants.TURRET_PWM_RIGHT);
+    turret = new DigitalOutput(TurretConstants.TURRET_CHANNEL);
+    turret.enablePWM(0.375);
+    turret.setPWMRate(250);
     shooterL = new CANSparkMax(TurretConstants.SHOOTER_CAN_LEFT, MotorType.kBrushless);
     shooterR = new CANSparkMax(TurretConstants.SHOOTER_CAN_RIGHT, MotorType.kBrushless);
-    susan = new Talon(TurretConstants.SUSAN_PWM);
     shooter = new SpeedControllerGroup(shooterL, shooterR);
+    enc_turret = new Encoder(TurretConstants.ENCODER_LEFT_CHANNEL, TurretConstants.ENCODER_RIGHT_CHANNEL);
   }
 
-  public void shoot(){
+  public void shoot() {
     shooter.set(1);
+  }
+  public int angle() {
+    turret.updateDutyCycle((0.25*0.5+1.5)/4);;
+    return enc_turret.get();
   }
   @Override
   public void periodic() {

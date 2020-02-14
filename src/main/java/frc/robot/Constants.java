@@ -45,11 +45,11 @@ public final class Constants {
         public static final int DRIVE_PWM_LEFT_FRONT = 3;
     }
     public static final class TurretConstants {
-        public static final int TURRET_PWM_LEFT = 4;
-        public static final int TURRET_PWM_RIGHT = 5;
-        public static final int SHOOTER_CAN_LEFT = 2;
-        public static final int SHOOTER_CAN_RIGHT = 3;
-        public static final int SUSAN_PWM = 6;
+        public static final int TURRET_CHANNEL = 00;
+        public static final int SHOOTER_CAN_LEFT = 00;
+        public static final int SHOOTER_CAN_RIGHT = 00;
+        public static final int ENCODER_LEFT_CHANNEL = 00;
+        public static final int ENCODER_RIGHT_CHANNEL = 00;
     }
     public static final class EncoderConstants {
         public static final int ENCODER_1_DIO1 = 2;
@@ -90,12 +90,13 @@ public final class Constants {
     }
 
     public static final class IntakeConstants {
-        public static final int ROLLER_CAN = 10;
-        public static final int DROPPER_CAN = 11;
+        public static final int ROLLER_CHANNEL = 00;
+        public static final int DROPPER_CHANNEL = 5;
+        public static final int AGITATOR_CHANNEL = 4;
+        public static final int FEEDER_CHANNEL = 00;
 
-        public static final int BOTTOM_CHANNEL = 12;
-        public static final int TOP_CHANNEL = 13;
-        public static final int BALL_CHANNEL = 14;
+        public static final int BOTTOM_CHANNEL = 00;
+        public static final int TOP_CHANNEL = 00;
     }
     
     public static final class HangerConstants {
