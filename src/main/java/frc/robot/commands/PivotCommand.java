@@ -40,21 +40,7 @@ DriveTrain d;
   @Override
   public void execute() {
     try {
-      if (vision.getTX() != 0.0) {
-        if (vision.getTX() > 1.0) {
-          if (vision.getTX() > 0.5) {
-            turnAtSpeed(0.2);
-          }else {
-            turnAtSpeed(0.1);
-          }
-        }else if (vision.getTX() < -1.0) {
-          if (vision.getTX() < -0.5) {
-            turnAtSpeed(-0.2);
-          }else {
-            turnAtSpeed(-0.1);
-          }
-        }
-      }
+      turnAtSpeed(vision.PivotToTarget(0.5,0.3,0.1));
     } catch (NullPointerException e) {
       System.out.println("Caught Exception");
     }

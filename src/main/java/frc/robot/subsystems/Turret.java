@@ -16,19 +16,38 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Turret extends SubsystemBase {
-  private SpeedController turretAngleL, turretAngleR, shooterL, shooterR, susan;
+  private CANSparkMax shooterL;
+  private CANSparkMax shooterR;
+  private SpeedController turretAngleL, turretAngleR, susan;
   private SpeedControllerGroup shooter;
   public Turret() {
-    turretAngleL = new Talon(TurretConstants.TURRET_PWM_LEFT);
-    turretAngleR = new Talon(TurretConstants.TURRET_PWM_RIGHT);
+    // turretAngleL = new Talon(TurretConstants.TURRET_PWM_LEFT);
+    // turretAngleR = new Talon(TurretConstants.TURRET_PWM_RIGHT);
     shooterL = new CANSparkMax(TurretConstants.SHOOTER_CAN_LEFT, MotorType.kBrushless);
     shooterR = new CANSparkMax(TurretConstants.SHOOTER_CAN_RIGHT, MotorType.kBrushless);
-    susan = new Talon(TurretConstants.SUSAN_PWM);
-    shooter = new SpeedControllerGroup(shooterL, shooterR);
+  //  susan = new Talon(TurretConstants.SUSAN_PWM);
+  //  shooter = new SpeedControllerGroup(shooterL, shooterR);
+
+    
   }
 
   public void shoot(){
-    shooter.set(1);
+    // shooter.set(1);
+    if (shooterL == null) {
+      System.out.println("LEFT SHOOTER IS NULL");
+    }else {
+      shooterL.set(0.75);
+      shooterR.set(0.75);
+    }
+  }
+
+  public void stop(){
+    if (shooterL == null) {
+      System.out.println("LEFT SHOOTER IS NULL");
+    }else {
+      shooterL.set(0);
+      shooterR.set(0);  
+    }
   }
   @Override
   public void periodic() {
