@@ -17,6 +17,7 @@ import frc.robot.Constants;
 import frc.robot.Constants.ControlPanelArmConstants;
 import frc.robot.commands.*;
 import frc.robot.commands.controlpanelarm.*;
+import frc.robot.commands.turret.*;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -28,22 +29,27 @@ public class RobotContainer {
   //Subsystems
   private final Drivetrain drive = new Drivetrain();
   private final ControlPanelArm cpa = new ControlPanelArm();
+  private final Turret turret = new Turret();
 
   //Joysticks
-  private final Joystick stick_right = Constants.ContainerConstants.JOYSTICK;
-  private final JoystickButton butt_armExtend;
-  private final JoystickButton butt_armRetract;
-  private final JoystickButton butt_rotControl;
-  private final JoystickButton butt_posControl;
+  private final Joystick stick_right = Constants.ContainerConstants.RIGHT_JOYSTICK;
+  private final JoystickButton b_armExtend;
+  private final JoystickButton b_armRetract;
+  private final JoystickButton b_rotControl;
+  private final JoystickButton b_turretOnOff;
+  private final JoystickButton b_colorControl;
+
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
-    butt_armExtend = new JoystickButton(stick_right, ControlPanelArmConstants.ARM_FWD_BUTTON);
-    butt_armRetract = new JoystickButton(stick_right, ControlPanelArmConstants.ARM_FWD_BUTTON);
-    butt_rotControl = new JoystickButton(stick_right, ControlPanelArmConstants.ROT_CONTROL_BUTTON);
-    butt_posControl = new JoystickButton(stick_right, ControlPanelArmConstants.POS_CONTROL_BUTTON);
+
+    b_armExtend = new JoystickButton(stick_right, ControlPanelArmConstants.ARM_FWD_BUTTON);
+    b_armRetract = new JoystickButton(stick_right, ControlPanelArmConstants.ARM_FWD_BUTTON);
+    b_rotControl = new JoystickButton(stick_right, ControlPanelArmConstants.ROT_CONTROL_BUTTON);
+    b_colorControl = new JoystickButton(stick_right, ControlPanelArmConstants.POS_CONTROL_BUTTON);
+    b_turretOnOff = new JoystickButton(stick_right, 1);
     configureButtonBindings();
     /*
     drive.setDefaultCommand(new RunCommand(() -> 
@@ -66,10 +72,11 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    butt_armExtend.whenPressed(new ArmExtend(cpa));
-    butt_armRetract.whenPressed(new ArmRetract(cpa));
-    butt_rotControl.whenPressed(new ControlPanelRotCtrl(cpa, 7));
-    butt_posControl.whenPressed(new ControlPanelPosCtrl(cpa));
+    b_armExtend.whenPressed(new ArmExtend(cpa));
+    b_armRetract.whenPressed(new ArmRetract(cpa));
+    b_rotControl.whenPressed(new ControlPanelRotCtrl(cpa), 7);
+    b_colorControl.whenPressed(new ControlPanelPosCtrl(cpa));
+    b_turretOnOff.whileHeld(new Fire(turret));
   }
 
   /**

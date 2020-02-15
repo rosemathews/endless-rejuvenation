@@ -36,9 +36,14 @@ public class Turret extends SubsystemBase {
   public void shoot() {
     shooter.set(1);
   }
-  public int angle() {
-    turret.updateDutyCycle((0.25*0.5+1.5)/4);;
-    return enc_turret.get();
+
+ public int angle() {
+   turret.updateDutyCycle((0.25*0.5+1.5)/4);;
+   return enc_turret.get();
+ }
+  
+  public void stop(){
+    shooter.set(0);
   }
   @Override
   public void periodic() {
