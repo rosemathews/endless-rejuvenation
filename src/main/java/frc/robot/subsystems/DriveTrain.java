@@ -17,7 +17,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.EncoderConstants;
 
-public class DriveTrain extends SubsystemBase {
+
+public class Drivetrain extends SubsystemBase {
   
   private SpeedController sc_RightB, sc_RightF, sc_LeftB, sc_LeftF;
   
@@ -26,10 +27,12 @@ public class DriveTrain extends SubsystemBase {
   private DifferentialDrive drive;
 
   private Encoder enc_Left, enc_Right;
+
+
   /**
    * Creates a new DriveTrain.
    */
-  public DriveTrain() {
+  public Drivetrain() {
     sc_RightB = new Talon(DriveConstants.DRIVE_PWM_RIGHT_BACK);
     sc_RightF = new Talon(DriveConstants.DRIVE_PWM_RIGHT_FRONT);
     sc_LeftB = new Talon(DriveConstants.DRIVE_PWM_LEFT_BACK);
@@ -44,6 +47,7 @@ public class DriveTrain extends SubsystemBase {
     enc_Right = new Encoder(EncoderConstants.ENCODER_2_DIO1, EncoderConstants.ENCODER_2_DIO2, false);
     enc_Left.setDistancePerPulse(EncoderConstants.DISTANCE_PER_PULSE);
     enc_Right.setDistancePerPulse(EncoderConstants.DISTANCE_PER_PULSE);
+    drive.setSafetyEnabled(false);
   }
 
   @Override

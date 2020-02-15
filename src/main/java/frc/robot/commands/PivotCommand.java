@@ -8,7 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Vision;
 
 /**
@@ -20,8 +20,8 @@ public class PivotCommand extends CommandBase {
   double I = 0.0;
   double D = 0.0;
   double rcw = 0.0;
-DriveTrain d;
-  public PivotCommand(Vision v, DriveTrain d) {
+  Drivetrain d;
+  public PivotCommand(Vision v, Drivetrain d) {
     this.vision = v;
     this.d = d;
   }
@@ -40,26 +40,10 @@ DriveTrain d;
   @Override
   public void execute() {
     try {
-      if (vision.getTX() != 0.0) {
-        if (vision.getTX() > 1.0) {
-          if (vision.getTX() > 0.5) {
-            turnAtSpeed(0.2);
-          }else {
-            turnAtSpeed(0.1);
-          }
-        }else if (vision.getTX() < -1.0) {
-          if (vision.getTX() < -0.5) {
-            turnAtSpeed(-0.2);
-          }else {
-            turnAtSpeed(-0.1);
-          }
-        }
-      }
-    } catch (NullPointerException e) {
+      turnAtSpeed(vision.pivotToTarget(0.5,0.3,0.1));
+    }catch (NullPointerException e) {
       System.out.println("Caught Exception");
     }
-    
-
   }
 
   // Make this return true when this Command no longer needs to run execute()

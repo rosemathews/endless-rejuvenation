@@ -5,22 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.autonomous;
+package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Intake;
 
-public class AutoTurn extends CommandBase {
-  private Drivetrain drive;
-  double angle, error, speed;
-  boolean done;
-  public AutoTurn(Drivetrain d, double angle, double error, double speed) {
-    addRequirements(d);
-    drive = d;
-    this.angle = angle;
-    this.error = error;
-    this.speed = speed;
+public class IntakeDown extends CommandBase {
+  /**
+   * Creates a new IntakeDown.
+   */
+  Intake intake;
+  public IntakeDown(Intake i) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(i);
+    intake = i;
   }
 
   // Called when the command is initially scheduled.
@@ -31,26 +29,19 @@ public class AutoTurn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    while (done == false) {
-      double navXAngle = Constants.NAVXConstants.NAVX.getYaw();
-      if (navXAngle < angle - error) {
-        drive.tankDrive(-speed, speed);
-      }else if (navXAngle > angle + error){
-        drive.tankDrive(speed, -speed);
-      }else{
-        done = true;
-      }
-    }
+    intake.in(0.5);
+    intake.move(0.5);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    intake.move(0.0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return intake.getBottomSwitch();
   }
 }

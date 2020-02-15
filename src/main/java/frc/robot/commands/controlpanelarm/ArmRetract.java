@@ -5,22 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.autonomous;
+package frc.robot.commands.controlpanelarm;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.ControlPanelArm;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 
-public class AutoTurn extends CommandBase {
-  private Drivetrain drive;
-  double angle, error, speed;
-  boolean done;
-  public AutoTurn(Drivetrain d, double angle, double error, double speed) {
-    addRequirements(d);
-    drive = d;
-    this.angle = angle;
-    this.error = error;
-    this.speed = speed;
+public class ArmRetract extends CommandBase {
+  ControlPanelArm arm;
+  public ArmRetract(ControlPanelArm a) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(a);
+    arm = a;
   }
 
   // Called when the command is initially scheduled.
@@ -31,16 +27,7 @@ public class AutoTurn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    while (done == false) {
-      double navXAngle = Constants.NAVXConstants.NAVX.getYaw();
-      if (navXAngle < angle - error) {
-        drive.tankDrive(-speed, speed);
-      }else if (navXAngle > angle + error){
-        drive.tankDrive(speed, -speed);
-      }else{
-        done = true;
-      }
-    }
+    arm.setExtender(DoubleSolenoid.Value.kReverse);
   }
 
   // Called once the command ends or is interrupted.

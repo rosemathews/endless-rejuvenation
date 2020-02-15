@@ -27,11 +27,10 @@ public final class Constants {
      * 
      */
     public static final class ContainerConstants{
-        public static final int LEFT_JOYSTICK_USB = 0;
-        public static final int RIGHT_JOYSTICK_USB = 1;
+        public static final int JOYSTICK_USB = 0;
 
-        public static final Joystick LEFT_JOYSTICK = new Joystick(LEFT_JOYSTICK_USB);
-        public static final Joystick RIGHT_JOYSTICK = new Joystick(RIGHT_JOYSTICK_USB);
+        
+        public static final Joystick JOYSTICK = new Joystick(JOYSTICK_USB);
 
     }
     
@@ -76,12 +75,13 @@ public final class Constants {
 
         /* ARM PWMS */
         public static final int ARM_MOTOR_CAN = 1;
-        public static final int SOLENOID_FORWARD_CHANNEL = 7;
-        public static final int SOLENOID_REVERSE_CHANNEL = 8;
 
         /* i2C port */
         public static final I2C.Port I2C_PORT = I2C.Port.kOnboard;
 
+        /* PCM ports */
+        public static final int ARM_SOLENOID_FORWARD_CHANNEL = 0;
+        public static final int ARM_SOLENOID_REVERSE_CHANNEL = 1;
         /*Button Mapping*/
         public static final int ARM_FWD_BUTTON = 5;
         public static final int ARM_REVERSE_BUTTON = 3;
@@ -90,18 +90,22 @@ public final class Constants {
     }
 
     public static final class IntakeConstants {
-        public static final int ROLLER_CAN = 10;
-        public static final int DROPPER_CAN = 11;
+        public static final int ROLLER_CHANNEL = 00;
+        public static final int DROPPER_CHANNEL = 5;
+        public static final int AGITATOR_CHANNEL = 4;
+        public static final int FEEDER_CHANNEL = 00;
 
-        public static final int BOTTOM_CHANNEL = 12;
-        public static final int TOP_CHANNEL = 13;
-        public static final int BALL_CHANNEL = 14;
+        public static final int BOTTOM_CHANNEL = 00;
+        public static final int TOP_CHANNEL = 00;
     }
     
     public static final class HangerConstants {
-        public static final int CLIMBER_CAN = 15;
+        public static final int CLIMBER_CAN = 2;
         public static final int CLIMB_UP_BUTTON = 6;
         public static final int CLIMB_DOWN_BUTTON = 4;
+        /*PCM PORTS*/
+        public static final int HANGER_SOLENOID_FORWARD_CHANNEL = 2;
+        public static final int HANGER_SOLENOID_REVERSE_CHANNEL = 3;
     }
 
 	public static final class NAVXConstants {
@@ -110,4 +114,5 @@ public final class Constants {
         double I = 0;
         double D = 0;
     }
+    public static final int PCM_CAN = 3;
 }

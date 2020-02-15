@@ -27,7 +27,7 @@ import frc.robot.commands.turret.*;
  */
 public class RobotContainer {
   //Subsystems
-  private final DriveTrain drive = new DriveTrain();
+  private final Drivetrain drive = new Drivetrain();
   private final ControlPanelArm cpa = new ControlPanelArm();
   private final Turret turret = new Turret();
 
@@ -38,11 +38,13 @@ public class RobotContainer {
   private final JoystickButton b_rotControl;
   private final JoystickButton b_turretOnOff;
   private final JoystickButton b_colorControl;
+
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
+
     b_armExtend = new JoystickButton(stick_right, ControlPanelArmConstants.ARM_FWD_BUTTON);
     b_armRetract = new JoystickButton(stick_right, ControlPanelArmConstants.ARM_FWD_BUTTON);
     b_rotControl = new JoystickButton(stick_right, ControlPanelArmConstants.ROT_CONTROL_BUTTON);
@@ -72,7 +74,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     b_armExtend.whenPressed(new ArmExtend(cpa));
     b_armRetract.whenPressed(new ArmRetract(cpa));
-    b_rotControl.whenPressed(new ControlPanelRotCtrl(cpa));
+    b_rotControl.whenPressed(new ControlPanelRotCtrl(cpa), 7);
     b_colorControl.whenPressed(new ControlPanelPosCtrl(cpa));
     b_turretOnOff.whileHeld(new Fire(turret));
   }
