@@ -17,6 +17,7 @@ public class Fire extends CommandBase {
   private Turret t;
   public Fire(Turret t) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.t = t;
     addRequirements(t);
   }
 

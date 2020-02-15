@@ -10,7 +10,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.*;
 import frc.robot.Constants;
@@ -38,13 +37,12 @@ public class RobotContainer {
   private final JoystickButton b_rotControl;
   private final JoystickButton b_turretOnOff;
   private final JoystickButton b_colorControl;
-
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
-
+    
     b_armExtend = new JoystickButton(stick_right, ControlPanelArmConstants.ARM_FWD_BUTTON);
     b_armRetract = new JoystickButton(stick_right, ControlPanelArmConstants.ARM_FWD_BUTTON);
     b_rotControl = new JoystickButton(stick_right, ControlPanelArmConstants.ROT_CONTROL_BUTTON);
@@ -58,12 +56,12 @@ public class RobotContainer {
         -stick_right.getY())
       ,drive));
     */
-    drive.setDefaultCommand(new RunCommand(() -> 
-      drive.arcadeDrive(
-        stick_right.getY(), 
-        stick_right.getX())
-        ,drive
-        ));
+    // drive.setDefaultCommand(new RunCommand(() -> 
+    //   drive.arcadeDrive(
+    //     stick_right.getY(), 
+    //     stick_right.getX())
+    //     ,drive
+    //     ));
   }
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
@@ -72,6 +70,7 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+
     b_armExtend.whenPressed(new ArmExtend(cpa));
     b_armRetract.whenPressed(new ArmRetract(cpa));
     b_rotControl.whenPressed(new ControlPanelRotCtrl(cpa, 7));

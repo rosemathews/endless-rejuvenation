@@ -41,7 +41,7 @@ public class PivotCommand extends CommandBase {
   public void execute() {
     try {
       turnAtSpeed(vision.pivotToTarget(0.5,0.3,0.1));
-    }catch (NullPointerException e) {
+    } catch (NullPointerException e) {
       System.out.println("Caught Exception");
     }
   }
