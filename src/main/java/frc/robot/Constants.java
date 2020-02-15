@@ -28,7 +28,6 @@ public final class Constants {
      */
     public static final class ContainerConstants{
         public static final int JOYSTICK_USB = 0;
-
         
         public static final Joystick JOYSTICK = new Joystick(JOYSTICK_USB);
 
@@ -45,11 +44,11 @@ public final class Constants {
         public static final int DRIVE_PWM_LEFT_FRONT = 3;
     }
     public static final class TurretConstants {
-        public static final int TURRET_PWM_LEFT = 4;
-        public static final int TURRET_PWM_RIGHT = 5;
-        public static final int SHOOTER_CAN_LEFT = 1;
-        public static final int SHOOTER_CAN_RIGHT = 2;
-        public static final int SUSAN_PWM = 6;
+        public static final int TURRET_CHANNEL = 00;
+        public static final int SHOOTER_CAN_LEFT = 00; 
+        public static final int SHOOTER_CAN_RIGHT = 00; 
+        public static final int ENCODER_LEFT_CHANNEL = 00; 
+        public static final int ENCODER_RIGHT_CHANNEL = 00; 
     }
     public static final class EncoderConstants {
         public static final int ENCODER_1_DIO1 = 2;

@@ -22,7 +22,7 @@ import frc.robot.Constants;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private ControlPanelArm m_cpa;
-  private Drivetrain m_drivetrain;
+  private DriveTrain m_drivetrain;
   private Intake m_intake;
   private Vision m_vision;
   private Turret m_turret;
