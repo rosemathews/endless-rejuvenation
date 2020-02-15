@@ -19,22 +19,37 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Turret extends SubsystemBase {
-  private SpeedController shooterL, shooterR;
+
+  private CANSparkMax shooterL;
+  private CANSparkMax shooterR;
+  private SpeedController turretAngleL, turretAngleR, susan;
   private SpeedControllerGroup shooter;
   private DigitalOutput turret;
   private Encoder enc_turret;
   public Turret() {
-    turret = new DigitalOutput(TurretConstants.TURRET_CHANNEL);
-    turret.enablePWM(0.375);
-    turret.setPWMRate(250);
     shooterL = new CANSparkMax(TurretConstants.SHOOTER_CAN_LEFT, MotorType.kBrushless);
     shooterR = new CANSparkMax(TurretConstants.SHOOTER_CAN_RIGHT, MotorType.kBrushless);
-    shooter = new SpeedControllerGroup(shooterL, shooterR);
-    enc_turret = new Encoder(TurretConstants.ENCODER_LEFT_CHANNEL, TurretConstants.ENCODER_RIGHT_CHANNEL);
+
+    
   }
 
-  public void shoot() {
-    shooter.set(1);
+  public void shoot(){
+    // shooter.set(1);
+    if (shooterL == null) {
+      System.out.println("LEFT SHOOTER IS NULL");
+    }else {
+      shooterL.set(0.75);
+      shooterR.set(0.75);
+    }
+  }
+
+  public void stop(){
+    if (shooterL == null) {
+      System.out.println("LEFT SHOOTER IS NULL");
+    }else {
+      shooterL.set(0);
+      shooterR.set(0);  
+    }
   }
 
  public int angle() {

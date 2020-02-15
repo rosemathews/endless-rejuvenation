@@ -8,7 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Vision;
 
 /**
@@ -20,8 +20,8 @@ public class PivotCommand extends CommandBase {
   double I = 0.0;
   double D = 0.0;
   double rcw = 0.0;
-  Drivetrain d;
-  public PivotCommand(Vision v, Drivetrain d) {
+  DriveTrain d;
+  public PivotCommand(Vision v, DriveTrain d) {
     this.vision = v;
     this.d = d;
   }
@@ -41,7 +41,7 @@ public class PivotCommand extends CommandBase {
   public void execute() {
     try {
       turnAtSpeed(vision.pivotToTarget(0.5,0.3,0.1));
-    }catch (NullPointerException e) {
+    } catch (NullPointerException e) {
       System.out.println("Caught Exception");
     }
   }

@@ -28,10 +28,8 @@ public final class Constants {
      */
     public static final class ContainerConstants{
         public static final int JOYSTICK_USB = 0;
-
         
         public static final Joystick JOYSTICK = new Joystick(JOYSTICK_USB);
-
     }
     
     /**
