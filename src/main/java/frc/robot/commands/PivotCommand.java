@@ -20,7 +20,7 @@ public class PivotCommand extends CommandBase {
   double I = 0.0;
   double D = 0.0;
   double rcw = 0.0;
-DriveTrain d;
+  DriveTrain d;
   public PivotCommand(Vision v, DriveTrain d) {
     this.vision = v;
     this.d = d;
@@ -40,12 +40,10 @@ DriveTrain d;
   @Override
   public void execute() {
     try {
-      turnAtSpeed(vision.PivotToTarget(0.5,0.3,0.1));
+      turnAtSpeed(vision.pivotToTarget(0.5,0.3,0.1));
     } catch (NullPointerException e) {
       System.out.println("Caught Exception");
     }
-    
-
   }
 
   // Make this return true when this Command no longer needs to run execute()

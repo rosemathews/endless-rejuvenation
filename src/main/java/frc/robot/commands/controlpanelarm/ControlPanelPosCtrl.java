@@ -15,10 +15,12 @@ public class ControlPanelPosCtrl extends CommandBase {
   
   private ControlPanelArm arm;
   private char desiredColor;
+  private boolean colorReached;
   /**
    * Creates a new ControlPanelPositionControl.
    */
   public ControlPanelPosCtrl(ControlPanelArm cpa) {
+    System.out.println("starting ControlPanelPosCtrl");
     addRequirements(cpa);
     arm = cpa;
     desiredColor = '?';
@@ -27,10 +29,13 @@ public class ControlPanelPosCtrl extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    System.out.println("RUN COMMAND... COOL..");
     String gameData = DriverStation.getInstance().getGameSpecificMessage();
     if(gameData.length() > 0){
       desiredColor = gameData.charAt(0);
     }
+    System.out.println("GameData: " + gameData);
+    colorReached = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -39,28 +44,27 @@ public class ControlPanelPosCtrl extends CommandBase {
     if(desiredColor == '?'){
       return;
     }
-    boolean colorReached = false;
-    while(colorReached == false){
-      if(arm.detectColor() == desiredColor){
-        colorReached = true;
-        arm.stopSpin();
-      }
-      else{
-        arm.spin();
-      }
+    if(arm.detectColor() == desiredColor){
+      colorReached = true;
+      arm.stopSpin();
+      System.out.println("color read is desired!");
     }
-   
+    else{
+      arm.spin(0.18);
+      System.out.println("color read is not desiredColor. spinning");
+    } 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     arm.stopSpin();
+    System.out.println("stopping");
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return colorReached;
   }
 }

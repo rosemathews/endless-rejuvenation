@@ -19,11 +19,12 @@ public class Vision extends SubsystemBase {
         return (98.25-heightOfCamera)/Math.tan(angleOfCamera+getTY());
     }
     //returns a value for the motor to run at in order to pivot to the target.
-    public double PivotToTarget(double topSpeed, double slowSpeed, double threshold) {
+    public double pivotToTarget(double topSpeed, double slowSpeed, double threshold) {
         if (getTX() != 0.0) {
             if (getTX() > 1.0) {
                 if (getTX() > threshold) {
                     return topSpeed;
+
                 }else {
                     return slowSpeed;
                 }
@@ -35,7 +36,8 @@ public class Vision extends SubsystemBase {
                 }
             }
         }
-        return 0.0;
+        return 0.0
+
     }
     public double getTX() {
         return tx.getDouble(0.0);

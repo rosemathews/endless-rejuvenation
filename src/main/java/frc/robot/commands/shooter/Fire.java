@@ -5,18 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ControlPanelArm;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Turret;
 
-public class ArmRetract extends CommandBase {
-  ControlPanelArm arm;
-  public ArmRetract(ControlPanelArm a) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(a);
-    arm = a;
+public class Fire extends CommandBase {
+  Intake intake;
+  Turret turret;
+  public Fire(Intake i, Turret t) {
+    addRequirements(i, t);
+    intake = i;
+    turret = t;
   }
 
   // Called when the command is initially scheduled.
@@ -27,7 +28,9 @@ public class ArmRetract extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.setExtender(DoubleSolenoid.Value.kReverse);
+    turret.shoot();
+    intake.agitate(0.5);
+    intake.feed(0.5);
   }
 
   // Called once the command ends or is interrupted.
@@ -38,6 +41,6 @@ public class ArmRetract extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return intake.ballsLoaded == 0;
   }
 }

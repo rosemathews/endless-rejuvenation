@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.ControlPanelArmConstants;
 
 import com.revrobotics.ColorSensorV3;
@@ -39,6 +40,7 @@ public class ControlPanelArm extends SubsystemBase {
     spin = new DigitalOutput(4);
     spin.enablePWM(0.375);
     spin.setPWMRate(250);
+    /* extender = new DoubleSolenoid(ControlPanelArmConstants.ARM_SOLENOID_FORWARD_CHANNEL, ControlPanelArmConstants.ARM_SOLENOID_REVERSE_CHANNEL); */
   }
 
   /**
@@ -75,21 +77,15 @@ public class ControlPanelArm extends SubsystemBase {
   }
 
   
-  public void spin(){
-    spin.updateDutyCycle((0.25*0.5+1.5)/4);
+  public void spin(double value){
+    spin.updateDutyCycle((value*0.5+1.5)/4);
   }
-  public void spinUntilNextColor() {
-    char initColor = detectColor();
-    while (initColor == detectColor()) {
-      spin();
-    }
-    stopSpin();
-  }
+  
   /**
    * Stops the armMotor
    */
   public void stopSpin(){
-    spin.updateDutyCycle(0.0);
+    spin.updateDutyCycle((0*0.5+1.5)/4);
   }
 
   /**
